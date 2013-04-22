@@ -23,7 +23,6 @@ private:
 	  Class myClass;
 	  unsigned short int age;
 	  Gender gender;
-	  int experience;
 	  int hitpoints;
 
 public:
@@ -42,8 +41,7 @@ public:
 	  void SetGender( Gender g );
 	  Gender GetGender() const;
   
-	  void SetExperience( int experience );
-	  int GetExperience() const;
+
   
 	  void Attack( GameObject *pObject );
 

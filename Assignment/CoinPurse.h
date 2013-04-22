@@ -7,7 +7,12 @@
 #ifndef __CoinPurse_h__
 #define __CoinPurse_h__
 
+#include "Templates.h"
 
+
+
+
+/*
 class CoinPurse
 {
 private:
@@ -31,5 +36,6 @@ public:
 		coinCount +=amount;
 	}
 };
+*/
 ////////////////////////////////////////////////////////////////////////////////
 #endif

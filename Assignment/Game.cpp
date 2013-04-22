@@ -24,8 +24,6 @@
 #include <exception>
 #include <sstream>
  
-
-
 using namespace std;
 #define DEV_NAME "simo_riikonen@hotmail.com"
 #define YEAR 2013
@@ -100,8 +98,8 @@ void Game::Play()
       
 			if ( player.GetHitpoints() <= 0 ) 
 			{    
-			  renderer->Render("You're dead. Game over.\n");
-			  running = false;
+				renderer->Render("You're dead. Game over.\n");
+				running = false;
 			}
 	  }
 

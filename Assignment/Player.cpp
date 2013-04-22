@@ -16,7 +16,9 @@ using namespace std;
 
 Player::Player()
 {
-  SetHitpoints(3);
+	SetHitpoints(3);
+	p_purse = &Purse;
+	p_exp = &Exp;
 }
 Player::~Player()
 {
@@ -60,10 +62,10 @@ void Player::PrintSummary()
 	  cout << "Class: " << plrClass << "\n";
 	  cout << "Age: " << GetAge() << "\n";
 	  cout << "Gender: " << plrGender << "\n";
-	  cout << "Experience: " << GetExperience() << "\n";
+	  cout << "Experience: " << GetExperience().GetValue() << "\n";
 
 	  //NEW!!
-	  cout << "Gold: " << Purse.GetGoldAmount() << "\n";
+	  cout << "Gold: " << GetPurse().GetValue() << "\n";
 	  cout << "*******************************" << "\n";
 	  cout << "\n";
 }
@@ -94,26 +96,32 @@ void Player::AskInfo( Player & p)
 		p.SetExperience(0);
 
 		//NEW!!
-		p.Purse.SetGoldAmount(50);
+		p.GetPurse().SetValue(50);
 		
 		cin.ignore();
 }
 void Player::SetGame( Game * game )
 { 
-  this->game = game;
+	this->game = game;
 }
-CoinPurse Player::GetPurse()
+
+SingleVariableContainer<unsigned int> Player::GetPurse()
 {
-	return Purse;
+	return *p_purse;
 }
+
 //NEW!!
 void Player::SetGoldAmount(unsigned int amount)
 {
-	Purse.SetGoldAmount(amount);
+	Purse.SetValue(amount);
 }
-void Player::operator+(int amount)
+
+void Player::SetExperience( int experience )
 {
-	int currentExp = GetExperience();
-	int newExp = currentExp + amount;
-	SetExperience(newExp);
+	Exp.SetValue(experience);
+}
+
+SingleVariableContainer<int> Player::GetExperience() 
+{
+  return *p_exp;
 }

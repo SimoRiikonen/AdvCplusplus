@@ -12,14 +12,23 @@
 
 
 class Game;
+
 ////////////////////////////////////////////////////////////////////////////////
 class Player : public GameObject
 {
 private:
 		Game *game;
+		
 		//NEW!!
-		CoinPurse Purse;
+		SingleVariableContainer<unsigned int> Purse;
+		SingleVariableContainer<unsigned int> * p_purse;
+
+		SingleVariableContainer<int> Exp;
+		SingleVariableContainer<int> * p_exp;
+		
 		friend class SearchCommand;
+		friend class MonsterRoom;
+	
 public:
 		Player();
 		virtual ~Player();
@@ -29,12 +38,11 @@ public:
 		void PrintSummary();
 		static void AskInfo(Player & p);
 
-		CoinPurse GetPurse();
+		SingleVariableContainer<unsigned int> GetPurse();
 		void SetGoldAmount(unsigned int amount);
 
-		void operator + (int amount);
-
-
+		void SetExperience(int experience);	
+		SingleVariableContainer<int> GetExperience();
 };
 ////////////////////////////////////////////////////////////////////////////////
 #endif
