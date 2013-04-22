@@ -19,20 +19,21 @@ public:
 
   Enemy() 
   {
-    SetHitpoints(10) ;
+    SetHitpoints(10);
   }
   
   bool IsAlive() const { return GetHitpoints() > 0; }
 
   void Attack( GameObject *pObject )
   {
+	Sword * sword = new Sword(3, 60, " attacks with a sword!\n");
     int hp = pObject->GetHitpoints();
-    if ( (rand() % 10) < 3 )
+	if ( (rand() % 100) < sword->GetHitChance())
     {
       // TODO: convert this into weapon 
       // with damage property. Can you do it? Is so, explain in your learning diary how.
-      pObject->SetHitpoints(hp-1); 
-      cout << GetName() << " hits!\n";
+		pObject->SetHitpoints(hp-sword->GetDmg()); 
+		cout << GetName() << sword->GetAttackMessage();
     }
     else
       cout << GetName() << " misses!\n";

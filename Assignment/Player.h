@@ -30,6 +30,8 @@ private:
 		friend class MonsterRoom;
 	
 public:
+		
+
 		Player();
 		virtual ~Player();
 		void SetGame(Game *game);

@@ -10,6 +10,9 @@
 
 #include <string>
 #include <map>
+#include <iostream>
+
+using namespace std;
 
 class Weapon 
 {
@@ -18,6 +21,7 @@ private:
 	int hitChance;
 	string attackMessage;
 	string user;
+	string name;
 
 public:
 	int GetDmg()
@@ -52,16 +56,36 @@ public:
 	{
 		user = username;
 	}
+	string GetName()
+	{
+		return name;
+	}
+	void SetName(string wep_name)
+	{
+		name = wep_name;
+	}
 };
 class Sword : public Weapon
 {
 public:
-	Sword() : Weapon()
+	Sword(int i)
 	{
 		SetDmg(3);
 		SetHitChance(75);
 		SetAttackMessage(" attacks with a sword!\n");
 		SetUser("Paladin");
+		SetName("Swodr");
+		
+	}
+	Sword(int dmg, int hitC, string attMsg)
+	{
+		SetDmg(dmg);
+		SetHitChance(hitC);
+		SetAttackMessage(attMsg);
+	}
+	Sword() : Sword(0)
+	{
+		SetName("Sword");
 	}
 };
 class Club : public Weapon
@@ -73,6 +97,7 @@ public:
 		SetHitChance(50);
 		SetAttackMessage(" lands a heavy blow with a club \n");
 		SetUser("Barbarian");
+		SetName("Club");
 	}
 };
 class Staff : public Weapon
@@ -84,6 +109,7 @@ public:
 		SetHitChance(60);
 		SetAttackMessage(" casts a spell using a staff!\n");
 		SetUser("Wizard");
+		SetName("Staff");
 	}
 };
 class Dagger : public Weapon
@@ -95,6 +121,7 @@ public:
 		SetHitChance(90);
 		SetAttackMessage(" attacks swiftly with a dagger!\n");
 		SetUser("Thief");
+		SetName("Dagger");
 	}
 };
 
@@ -109,4 +136,16 @@ public:
 	}
 };
 
+class PrintWeapons
+{
+public: 
+	void operator()(WeaponMap::iterator it)
+	{
+		auto * weapon = it->second;
+		cout<< "Class: " << it->first <<" |" 
+			<< " Weapon: "<<weapon->GetName() <<" |"
+			<< " Damage: " << weapon->GetDmg()<<" |"
+			<< " Hit Chance: " << weapon->GetHitChance()<<"%"<< endl;
+	}
+};
 #endif

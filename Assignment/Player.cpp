@@ -11,7 +11,7 @@
 #include <cstdlib>
 #include <sstream>
 #include <iostream>
-
+#include <algorithm>
 
 #include "Weapon.h"
 
@@ -19,16 +19,17 @@ using namespace std;
 
 Player::Player()
 {
-	SetHitpoints(3);
+	SetHitpoints(10);
 	p_purse = &Purse;
 	p_exp = &Exp;
+	
 }
 Player::~Player()
 {
   
 }
 
-Weapon* Player::GetWeapon()
+WeaponSelector CreateWeaponSelection()
 {
 	WeaponSelector weaponSelector;
 	Weapon *sword = new Sword();
@@ -40,6 +41,26 @@ Weapon* Player::GetWeapon()
 	weaponSelector.Add(club);
 	weaponSelector.Add(staff);
 	weaponSelector.Add(dagger);
+
+	return weaponSelector;
+}
+void PrintWeaponSelection()
+{
+	WeaponSelector WeaponSelection = CreateWeaponSelection();
+	PrintWeapons printWeapons;
+
+	//typedef map<string, Weapon *> WeaponMap;
+	//WeaponMap::iterator it;
+	auto it = WeaponSelection.Weapons.begin();
+
+	for(; it != WeaponSelection.Weapons.end(); it++)
+	{
+		printWeapons(it);
+	}
+}
+Weapon* Player::GetWeapon()
+{
+	WeaponSelector weaponSelector = CreateWeaponSelection();
 
 	int classNumber = GetClass();
 	string className;
@@ -116,6 +137,10 @@ void Player::AskInfo( Player & p)
 		cout << "What is your name?: "; 
 		cin >> name; 
 		p.SetName(name);
+		
+		cout << "***********Weapon Statistics**********" << "\n";
+		PrintWeaponSelection();
+		cout << "**************************************" << "\n";
 
 		cout << "Choose a class: (1)Barbarian (2)Wizard (3)Paladin (4)Thief: ";
 		cin >> c; 
