@@ -12,14 +12,14 @@
 
 
 class Game;
-
+class Weapon;
 ////////////////////////////////////////////////////////////////////////////////
 class Player : public GameObject
 {
 private:
 		Game *game;
 		
-		//NEW!!
+		
 		SingleVariableContainer<unsigned int> Purse;
 		SingleVariableContainer<unsigned int> * p_purse;
 
@@ -40,6 +40,8 @@ public:
 
 		SingleVariableContainer<unsigned int> GetPurse();
 		void SetGoldAmount(unsigned int amount);
+
+		Weapon * GetWeapon();
 
 		void SetExperience(int experience);	
 		SingleVariableContainer<int> GetExperience();

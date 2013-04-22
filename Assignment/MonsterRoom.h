@@ -24,8 +24,8 @@ public:
 	{
 		noticedPlayer = false;
 		gotExp = false;
-		e.SetName( "Orc");
-		SetDescription("You are in the monster room. There is an orc here!");
+		e.SetName( "Undead Knight");
+		SetDescription("You are in the monster room. There is a Undead Knight here!");
 	}
   ////////////////////
   /// Makes enemy attack player once on every turn.
@@ -45,7 +45,11 @@ public:
 		if(GetGame()->GetPlayer().GetHitpoints() == 0)
 		{
 			GetGame()->GetPlayer().Exp - 5;
-			GetGame()->GetRenderer()->Render("You have fallen in combat. You lose 5 exp..\n");
+			GetGame()->GetRenderer()->Render("You have fallen in combat. You lose 5 exp..");
+			
+			int i;
+			cin >> i;
+			cin.ignore();
 		}
 	}
   ////////////////////
@@ -75,7 +79,7 @@ public:
 		// Change room description a bit
 		if ( e.IsAlive() == false )
 		{
-			SetDescription("You are in the monster room. There is a pretty dead orc here.");
+			SetDescription("You are in the monster room. There is an even deader Undead Knight here.");
 			if (gotExp == false)
 			{
 				GetGame()->GetPlayer().Exp + 5;

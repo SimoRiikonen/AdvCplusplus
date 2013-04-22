@@ -12,6 +12,9 @@
 #include <sstream>
 #include <iostream>
 
+
+#include "Weapon.h"
+
 using namespace std;
 
 Player::Player()
@@ -24,14 +27,49 @@ Player::~Player()
 {
   
 }
+
+Weapon* Player::GetWeapon()
+{
+	WeaponSelector weaponSelector;
+	Weapon *sword = new Sword();
+	Weapon *club = new Club();
+	Weapon *staff = new Staff();
+	Weapon *dagger = new Dagger();
+
+	weaponSelector.Add(sword);
+	weaponSelector.Add(club);
+	weaponSelector.Add(staff);
+	weaponSelector.Add(dagger);
+
+	int classNumber = GetClass();
+	string className;
+	switch (classNumber)
+	{
+		case 1: className = "Barbarian"; break;
+		case 2: className = "Wizard"; break;
+		case 3: className = "Paladin"; break;
+		case 4: className = "Thief"; break;
+	}
+	
+	typedef map<string, Weapon *> WeaponMap;
+	WeaponMap::iterator it;
+	it = weaponSelector.Weapons.find(className);
+
+	Weapon *activeWeapon = it->second; 
+
+	return activeWeapon;
+}
+
 void Player::Attack( GameObject *pObject )
 {
+	Weapon * activeWeapon = Player::GetWeapon();
+
 	int hp = pObject->GetHitpoints();
-	if ( (rand() % 100) < 63 )
+	if ( (rand() % 100) < activeWeapon->GetHitChance() )
 	{
-		pObject->SetHitpoints(hp-1); 
+		pObject->SetHitpoints(hp-activeWeapon->GetDmg()); 
 		ostringstream s;
-		s << GetName() << " hits!\n";
+		s << GetName() << activeWeapon->GetAttackMessage();
 		game->GetRenderer()->Render( s.str() );
 	}
 	else
@@ -51,7 +89,7 @@ void Player::PrintSummary()
 	  if (playerClass == 1) plrClass = "Barbarian";
 	  else if (playerClass == 2) plrClass = "Wizard";
 	  else if (playerClass == 3) plrClass = "Paladin";
-	  else if (playerClass == 4) plrClass = "Priest";
+	  else if (playerClass == 4) plrClass = "Theif";
 
 	  if (gender == 1) plrGender = "Male";
 	  else plrGender = "Female"; 
@@ -63,8 +101,6 @@ void Player::PrintSummary()
 	  cout << "Age: " << GetAge() << "\n";
 	  cout << "Gender: " << plrGender << "\n";
 	  cout << "Experience: " << GetExperience().GetValue() << "\n";
-
-	  //NEW!!
 	  cout << "Gold: " << GetPurse().GetValue() << "\n";
 	  cout << "*******************************" << "\n";
 	  cout << "\n";
@@ -81,7 +117,7 @@ void Player::AskInfo( Player & p)
 		cin >> name; 
 		p.SetName(name);
 
-		cout << "Choose a class: (1)Barbarian (2)Wizard (3)Paladin (4)Priest: ";
+		cout << "Choose a class: (1)Barbarian (2)Wizard (3)Paladin (4)Thief: ";
 		cin >> c; 
 		p.SetClass((Class)c);
 

@@ -7,9 +7,9 @@
 #ifndef __Enemy_h__
 #define __Enemy_h__
 #include "GameObject.h"
+#include "Weapon.h"
 #include <iostream>
 #include <cstdlib>
-const int ENEMY_DEFAULT_HITPOINTS = 3;
 
 using namespace std;
 
@@ -19,7 +19,7 @@ public:
 
   Enemy() 
   {
-    SetHitpoints(ENEMY_DEFAULT_HITPOINTS) ;
+    SetHitpoints(10) ;
   }
   
   bool IsAlive() const { return GetHitpoints() > 0; }

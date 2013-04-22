@@ -13,7 +13,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 using std::string;
 enum Gender { Male, Female };
-enum Class { Barbarian, Wizard, Paladin, Priest };
+enum Class { Barbarian, Wizard, Paladin, Thief };
 ////////////////////////////////////////////////////////////////////////////////
 /// Base class for all game characters.
 class GameObject : public Attacker, public Updateable
@@ -40,8 +40,6 @@ public:
   
 	  void SetGender( Gender g );
 	  Gender GetGender() const;
-  
-
   
 	  void Attack( GameObject *pObject );
 
