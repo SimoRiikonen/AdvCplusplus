@@ -75,6 +75,14 @@ CommandFactory::Create( const std::string & str )
       return command;
     }
   }
-  return new UnknownCommand(m_pGame);  
+  //NEW!!
+  if (word == "stats")
+  {
+	m_pGame->GetPlayer().PrintSummary();
+  }
+  else 
+  {
+	return new UnknownCommand(m_pGame);  
+  }
 }
 ////////////////////////////////////////////////////////////////////////////////

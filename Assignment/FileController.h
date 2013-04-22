@@ -28,6 +28,7 @@ public:
 					if ( line == "#player")
 					{
 					  int iTmp;
+					  unsigned int uiTmp;
 					  string strTmp;
 					  char g;
 					  f >> strTmp; p.SetName(strTmp); 
@@ -35,17 +36,17 @@ public:
 					  f >> iTmp; p.SetAge(iTmp);
 					  f >> g; p.SetGender( (g == 'm' ? Male : Female) );
 					  f >> iTmp; p.SetExperience(iTmp); 
+					  f >> iTmp; p.SetGoldAmount(iTmp);
 					}
 				}
 			}
 		}
-		catch (FileNotFoundException)
+		catch (FileNotFoundException & e)
 		{
 			std::cout << "\nCould not load data from a file. Create a new character. \n";
 			p.SetName("ERROR");
 		}
 	}
-
 	static void SaveInfo(Player & p)
 	{
 		ofstream f("playerdata.txt");
@@ -55,7 +56,8 @@ public:
 		f << p.GetClass()<< endl;
 		f << p.GetAge()<< endl;
 		f << p.GetGender()<< endl;
-		f << p.GetExperience()<< endl; 
+		f << p.GetExperience()<< endl;
+		f << p.GetPurse().GetGoldAmount()<< endl;
 		f.close();
 	}
 };

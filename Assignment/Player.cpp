@@ -18,12 +18,10 @@ Player::Player()
 {
   SetHitpoints(3);
 }
-
 Player::~Player()
 {
   
 }
-
 void Player::Attack( GameObject *pObject )
 {
 	int hp = pObject->GetHitpoints();
@@ -34,7 +32,6 @@ void Player::Attack( GameObject *pObject )
 		s << GetName() << " hits!\n";
 		game->GetRenderer()->Render( s.str() );
 	}
-
 	else
 	{
 		ostringstream s;
@@ -42,7 +39,6 @@ void Player::Attack( GameObject *pObject )
 		game->GetRenderer()->Render( s.str() );
 	}
 }
-
 void Player::PrintSummary()
 {
 	  int playerClass = (Class)GetClass();
@@ -58,13 +54,19 @@ void Player::PrintSummary()
 	  if (gender == 1) plrGender = "Male";
 	  else plrGender = "Female"; 
 
+	  cout << "\n";
+	  cout << "***********Statistics**********" << "\n";
 	  cout << "Name:" << GetName() << "\n";
 	  cout << "Class: " << plrClass << "\n";
 	  cout << "Age: " << GetAge() << "\n";
 	  cout << "Gender: " << plrGender << "\n";
 	  cout << "Experience: " << GetExperience() << "\n";
-}
 
+	  //NEW!!
+	  cout << "Gold: " << Purse.GetGoldAmount() << "\n";
+	  cout << "*******************************" << "\n";
+	  cout << "\n";
+}
 void Player::AskInfo( Player & p)
 {
 		string name;
@@ -90,13 +92,28 @@ void Player::AskInfo( Player & p)
 		p.SetGender((Gender)g);
 
 		p.SetExperience(0);
+
+		//NEW!!
+		p.Purse.SetGoldAmount(50);
+		
 		cin.ignore();
 }
-
-
-
 void Player::SetGame( Game * game )
 { 
   this->game = game;
 }
-
+CoinPurse Player::GetPurse()
+{
+	return Purse;
+}
+//NEW!!
+void Player::SetGoldAmount(unsigned int amount)
+{
+	Purse.SetGoldAmount(amount);
+}
+void Player::operator+(int amount)
+{
+	int currentExp = GetExperience();
+	int newExp = currentExp + amount;
+	SetExperience(newExp);
+}

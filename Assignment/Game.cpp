@@ -7,12 +7,8 @@
 
 #include "Game.h"
 #include "Player.h"
-//#include "GoldFactory.h"
-//#include "Gold.h"
 #include "QuitCommand.h"
-
 #include "TextRenderer.h"
-#include <sstream>
 #include "IRenderer.h"
 #include "CommandFactory.h"
 #include "Dungeon.h"
@@ -26,6 +22,7 @@
 #include <iostream>
 #include <fstream>
 #include <exception>
+#include <sstream>
  
 
 
@@ -76,9 +73,8 @@ void Game::Play()
 	  renderer->Render(s.str());
 	 
 	  renderer->Render("\nTrying to load data from a file...\n");
-	 
-	  //NEW!!
 	  FileController::LoadInfo(player);
+	  
 	  string nameCheck = player.GetName();
 	  if (nameCheck == "ERROR") Player::AskInfo(player);
 
@@ -109,7 +105,7 @@ void Game::Play()
 			}
 	  }
 
-	  // final message to player //NEW!!
+	  // final message to player
 	  FileController::SaveInfo(player);
 	  renderer->Render("Exiting, bye!\n");
 }

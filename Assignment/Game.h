@@ -18,22 +18,22 @@ enum RoomId { kDungeon, kHallway, kMonster, kChambers, kNumRooms };
 class Game 
 {
 private:
-  bool running;
-  Player player;
-  IRenderer *renderer;
-  Room      *rooms[kNumRooms]; ///< Map.
-  Room      *currentRoom;
+		bool running;
+		Player player;
+		IRenderer *renderer;
+		Room      *rooms[kNumRooms]; ///< Map.
+		Room      *currentRoom;
 public:
-  Game();
-  virtual ~Game();
-  void Play();
-  void SetRenderer( IRenderer *pRenderer );
-  IRenderer * GetRenderer() const;
-  bool IsRunning() const;
-  void SetRunning(bool bFlag ) ;
-  Player & GetPlayer();
-  Room * GetCurrentRoom();
-  void SetCurrentRoom( Room *pRoom );
+		Game();
+		virtual ~Game();
+		void Play();
+		void SetRenderer( IRenderer *pRenderer );
+		IRenderer * GetRenderer() const;
+		bool IsRunning() const;
+		void SetRunning(bool bFlag ) ;
+		Player & GetPlayer();
+		Room * GetCurrentRoom();
+		void SetCurrentRoom( Room *pRoom );
 };
 ////////////////////////////////////////////////////////////////////////////////
 #endif
